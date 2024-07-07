@@ -45,23 +45,14 @@ class MovieController extends Controller
     public function getFavorites()
     {
         $user = auth()->user();
-        
+
         if (!$user) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
-
-        $cacheKey = "user:{$user->id}:favorites";
-        $favoriteIds = Cache::get($cacheKey, []);
-
-        // Ensure favoriteIds is an array and contains valid IDs
-        if (!is_array($favoriteIds) || empty($favoriteIds)) {
-            return response()->json(['message' => 'No favorite movies found'], 404);
-        }
-
-        // Retrieve the favorite movies from the database
-        $favorites = Movie::whereIn('id', $favoriteIds)->get();
-
-        return response()->json($favorites);
+    
+        $favoriteMovies = $user->favorites()->paginate(10);
+    
+        return response()->json($favoriteMovies);
     }
 
     public function index(Request $request)
@@ -76,7 +67,7 @@ class MovieController extends Controller
             $query->where('description', 'like', '%' . $request->get('description') . '%');
         }
 
-        $movies = $query->paginate(10); // Pagination
+        $movies = $query->paginate(10);
 
         return response()->json($movies);
     }

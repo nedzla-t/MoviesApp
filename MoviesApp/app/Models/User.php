@@ -38,6 +38,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Movie::class, 'follows', 'user_id', 'movie_id')->withTimestamps();
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(Movie::class, 'follows', 'user_id', 'movie_id')->withTimestamps();
+    }
+
     /**
      * Get the attributes that should be cast.
      *
