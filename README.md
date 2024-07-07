@@ -24,7 +24,7 @@ php artisan key:generate
 
 ## Configure your database in the .env file
 
-## Run database migrations and seed (if applicable)
+## Run database migrations and seed
 php artisan migrate --seed
 
 # CONFIGURATION FOR DATABASE
@@ -45,8 +45,8 @@ php artisan serve
 
 Application should now be running at http://localhost:8000.
 
-RUNNING TESTS
+# RUNNING TESTS
 
-To run the automated tests for this system, use:
+## To run the automated tests for this system, use:
 php artisan test
 
